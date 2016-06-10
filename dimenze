@@ -1,0 +1,245 @@
+[o_delivery_price]
+meta=interval
+1=_0
+2=1_50
+3=51_100
+4=101_150
+5=151_
+[o_total_price]
+metadata=interval
+1=0_150
+2=151_300
+3=301_450
+4=451_
+[o_payed_by_label]
+meta=values
+1=Cash
+2=Credit Card
+3=NULL
+[o_origin_label]
+meta=values
+1=App
+2=Web
+3=NULL
+[o_distance_a]
+meta=values
+1=1
+2=2
+3=3
+4=4
+5=5
+6=6
+7=7
+8=8
+9=9
+10=10
+[o_first_order]
+meta=values
+1=0
+2=1
+[o_delivery_type]
+meta=values
+1=courier
+2=external
+3=takeaway
+4=restaurant
+[o_traffic_source_id]
+meta=values
+1=(direct)-(direct)-(not set)
+2=google-organic-(not set)
+3=app-app-
+4=mpi.gpwebpay.com-referral-
+5=adwords-cpc-brand
+6=adwords-cpc-non-brand
+7=facebook.com-referral-
+8=seznam-organic-(not set)
+9=sklik-cpc-non-brand
+10=3dsecure.gpwebpay.com-referral-
+11=facebook-organic-
+12=cj-affil-cj_3753807
+13=redir.netcentrum.cz-referral-
+[o_dayssincepreviousorder]
+meta=interval
+1=1_5
+2=6_10
+3=11_30
+4=31_100
+5=101_
+[o_city]
+meta=values
+1=Praha
+2=Brno
+3=Liberec
+4=Ostrava
+5=Hradec Králové
+6=Olomouc
+7=Plzeň
+8=České Budějovice
+9=Pardubice
+10=Ústí nad Labem
+11=Zlín
+12=Frýdek-Místek
+13=Opava
+14=Chomutov
+15=Mladá Boleslav
+16=Jablonec nad Nisou
+17=Most
+18=Teplice
+19=Havířov
+20=Kladno
+21=Jihlava
+22=Beroun
+23=Římov
+24=Šenov
+25=Prostějov
+26=Třebíč
+27=Krnov
+28=Trutnov
+29=Tábor
+30=Řečkovice
+[r_city]
+meta=values
+1=Praha
+2=Brno
+3=Ostrava
+4=Plzeň
+5=Liberec
+6=Pardubice
+7=Hradec Králové
+8=Olomouc
+9=České Budějovice
+10=Ústí nad Labem
+11=Zlín
+12=Teplice
+13=Karlovy Vary
+14=Mladá Boleslav
+15=Others
+16=Most
+17=Opava
+18=Frýdek-Místek
+19=Příbram
+20=Jablonec nad Nisou
+21=Havířov
+22=Jihlava
+23=Kladno
+24=Chomutov
+25=Litoměřice
+26=Prostějov
+27=Beroun
+28=Třebíč
+29=Tábor
+30=Písek
+[r_district]
+meta=values
+Brno-Bohunice
+Brno-Bystrc
+Brno-Černovice
+Brno-Ivanovice
+Brno-Jih
+Brno-Kníničky
+Brno-Komín
+Brno-Královo Pole
+Brno-Líšeň
+Brno-Maloměřice A Obřany
+Brno-Medlánky
+Brno-Nový Lískovec
+Brno-Řečkovice A Mokrá Hora
+Brno-Sever
+Brno-Slatina
+Brno-Starý Lískovec
+Brno-Střed
+Brno-Vinohrady
+Brno-Žabovřesky
+Brno-Židenice
+--empty--
+Hošťálkovice
+Hrabová
+Krásné Pole
+Liberec-Vratislavice Nad Nisou
+Mariánské Hory A Hulváky
+Martinov
+Moravská Ostrava A Přívoz
+Nová Ves
+Ostrava-Jih
+Pardubice I
+Pardubice Ii
+Pardubice Iii
+Pardubice Iv
+Pardubice V
+Pardubice Vi
+Pardubice Vii
+Petřkovice
+Plzeň 1
+Plzeň 2-Slovany
+Plzeň 3
+Plzeň 4
+Plzeň 6-Litice
+Plzeň 8-Černice
+Poruba
+Praha
+Praha 1
+Praha 10
+Praha 11
+Praha 12
+Praha 13
+Praha 14
+Praha 15
+Praha 16
+Praha 17
+Praha 18
+Praha 19
+Praha 2
+Praha 20
+Praha 21
+Praha 22
+Praha 3
+Praha 4
+Praha 5
+Praha 6
+Praha 7
+Praha 8
+Praha 9
+Praha-Běchovice
+Praha-Březiněves
+Praha-Čakovice
+Praha-Ďáblice
+Praha-Dolní Chabry
+Praha-Dolní Měcholupy
+Praha-Dolní Počernice
+Praha-Dubeč
+Praha-Klánovice
+Praha-Kolovraty
+Praha-Kunratice
+Praha-Libuš
+Praha-Lipence
+Praha-Lysolaje
+Praha-Petrovice
+Praha-Řeporyje
+Praha-Suchdol
+Praha-Šeberov
+Praha-Štěrboholy
+Praha-Troja
+Praha-Velká Chuchle
+Praha-Zbraslav
+Praha-Zličín
+Slezská Ostrava
+Třebovice
+Ústí Nad Labem-Město
+Ústí Nad Labem-Neštěmice
+Ústí Nad Labem-Severní Terasa
+Ústí Nad Labem-Střekov
+Vítkovice
+[r_exclusive]
+meta=values
+1=0
+2=1
+[r_min_order_price]
+meta=interval
+1=0
+2=1_50
+3=51_100
+4=101_150
+5=151_200
+5=201_250
+6=251_
+
