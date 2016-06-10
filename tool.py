@@ -7,20 +7,41 @@ import ConfigParser
 import argparse
 
 
-def generate_where_expression(statement):
-    return ""
+def generate_where_expression(statement, boolean, meta):
+    sql=list()
+
+    left_side=statement.split('$')[0]
+    right_side=statement.split('$')[1]
+
+    if meta == 'values':
+        if boolean:
+            sql.append('%s=%s' % (left_side, right_side))
+        else:
+            sql.append('%s!=%s' % (left_side, right_side))
+    elif meta == 'interval':
+        sql.append("NOT IMPLEMENTED YET")
+    return "".join(sql)
 
 
-def find_in_config(config, statement):
-    return ""
+def find_meta_in_config(config, statement):
+    section = statement.split('$')[0]
+    for k,v in config.items(section):
+        if k == 'meta':
+            return v 
 
 
 def generate_inner_select(config, a, a_bool, b, b_bool):
-    return ""
+    sql = list()
+    meta_a = find_meta_in_config(config=config, statement=a)
+    meta_b = find_meta_in_config(config=config, statement=b)
+    exp_a = generate_where_expression(a, a_bool, meta_a)
+    exp_b = generate_where_expression(b, b_bool, meta_b)
+    sql.append("SELECT COUNT(*) FROM source_data WHERE %s AND %s" % (exp_a, exp_b))
+    return "".join(sql)
 
 
 def generate_update(config, a, a_bool, b, b_bool):
-    sql=list()
+    sql = list()
     inner_select=generate_inner_select(config=config, a=a, a_bool=a_bool, b=b, b_bool=b_bool)
     sql.append("UPDATE SET %s=(%s) WHERE rule=%s" % (a, inner_select, b))
     return "".join(sql)
@@ -29,7 +50,7 @@ def generate_update(config, a, a_bool, b, b_bool):
 def generate_updates(config, combs, a_bool, b_bool):
     updates=list()
     for i in combs:
-        for j in combs: 
+        for j in combs:
             if not i == j:
                 updates.append(generate_update(config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool))
     return updates
@@ -43,9 +64,9 @@ def generate_inserts(type, combs):
 
 
 def generate_table(config, type, combs):
-    sql=list()
+    sql = list()
     sql.append("CREATE TABLE asoc_rules_%s ( rules VARCHAR(255), " % type)
-    i=1
+    i = 1
     for dim in combs: 
         sql.append("%s LONG" % dim)
         if i != len(combs):
@@ -82,13 +103,15 @@ def main_wrapper(argv=None):
 
     args = parser.parse_args()
 
+    type='a'    
+
     config = read_config(args.config_file)
 
     combs = generate_combinations(config)
 
-    print generate_table(config=config, type='a', combs=combs)
+    print generate_table(config=config, type=type, combs=combs)
 
-    inserts = generate_inserts(type='a', combs=combs)
+    inserts = generate_inserts(type=type , combs=combs)
     for i in inserts:
         print i
 
