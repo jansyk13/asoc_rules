@@ -6,14 +6,25 @@ import os
 import ConfigParser
 import argparse
 
+def generate_updates (combs)
 
-def generateTable(config, type):
+def generate_combinations(config):
+    combinations=[]
+    for each_section in config.sections():
+        for (each_key, each_val) in config.items(each_section):
+            if not each_key is 'meta':
+               print ("%s %s" % (each_section, each_val)) 
+               combinations.append("%s %s" % (each_section, each_val))
+    return combinations
+
+
+def generate_table(config, type, combs):
     sql=list()
     sql.append("CREATE TABLE asoc_rules_%s ( rules VARCHAR(255), " % type)
     i=1
-    for each_section in config.sections(): 
-        sql.append("%s LONG" % each_section)
-        if i != len(config.sections()):
+    for dim in combs: 
+        sql.append("%s LONG" % dim)
+        if i != len(combs):
             sql.append(", ")
         i = i + 1
     sql.append(" );")
@@ -39,7 +50,10 @@ def main_wrapper(argv=None):
     args = parser.parse_args()
 
     config = read_config(args.config_file)
-    print generateTable(config=config, type='a')
+
+    combs = generate_combinations(config)
+
+    print generate_table(config=config, type='a', combs=combs)
 
 
 def main():
