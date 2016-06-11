@@ -14,24 +14,24 @@ def generate_where_interval_expression(left_side, right_side, boolean, meta):
     right_side_right = right_side.split('_')[1]
 
     if boolean:
-        if not right_side_left == '#':
-            if not right_side_right == '#':
+        if not right_side_left == 'UNDEF':
+            if not right_side_right == 'UNDEF':
                 sql.append("(`%s`>%s AND `%s`<=%s)" % (left_side, right_side_left, left_side, right_side_right))
             else:
                 sql.append("(`%s`>%s)" % (left_side, right_side_left))
         else:
-            if not right_side_right == '#':
+            if not right_side_right == 'UNDEF':
                sql.append("(`%s`<=%s)" % (left_side, right_side_right))
             else:
                raise Exception 
     else:
-	if not right_side_left == '#':
-            if not right_side_right == '#':
+	if not right_side_left == 'UNDEF':
+            if not right_side_right == 'UNDEF':
                 sql.append("(`%s`<=%s OR `%s`>%s)" % (left_side, right_side_left, left_side, right_side_right))
             else:
                 sql.append("(`%s`<=%s)" % (left_side, right_side_left))
         else:
-            if not right_side_right == '#':
+            if not right_side_right == 'UNDEF':
                sql.append("(`%s`>%s)" % (left_side, right_side_right))
             else:
                raise Exception

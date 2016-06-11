@@ -3,7 +3,7 @@ CREATE TABLE source_data (
     `o_total_price` VARCHAR (255),
     `o_payed_by_label` VARCHAR(255),
     `o_origin_label` VARCHAR(255),
-    `o_distance` VARCHAR(255),
+    `o_distance_a` VARCHAR(255),
     `o_first_order` VARCHAR(255),
     `o_delivery_type` VARCHAR(255),
     `o_traffic_source_id` VARCHAR(255),
