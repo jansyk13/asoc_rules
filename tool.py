@@ -93,7 +93,7 @@ def generate_updates(type, config, combs, a_bool, b_bool):
                     update.append(", ")
                 else:
                     update.append(" ")
-                k = k + 1
+            k = k + 1
         update.append(" WHERE rule='%s';" % i)
         updates.append("".join(update))
     return updates
