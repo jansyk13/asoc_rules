@@ -94,7 +94,7 @@ def generate_inserts(type, combs):
 
 def generate_table(config, type, combs):
     sql = list()
-    sql.append("CREATE TABLE asoc_rules_%s ( rules VARCHAR(255), " % type)
+    sql.append("CREATE TABLE asoc_rules_%s ( rule VARCHAR(255), " % type)
     i = 1
     for dim in combs: 
         sql.append("`%s` LONG" % dim)
