@@ -109,7 +109,7 @@ def generate_combinations(config):
     combinations=[]
     for each_section in config.sections():
         for (each_key, each_val) in config.items(each_section):
-            if not each_key == 'meta':
+            if not each_key == 'meta' and not each_val == 'values' and not each_val  == 'interval':
                 combinations.append("%s$%s" % (each_section, each_val))
     return combinations
 
