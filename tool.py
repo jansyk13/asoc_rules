@@ -82,9 +82,20 @@ def generate_update(type, config, a, a_bool, b, b_bool):
 def generate_updates(type, config, combs, a_bool, b_bool):
     updates=list()
     for i in combs:
+        update = list()
+        update.append('UPDATE asoc_rules_%s SET ' % type)
+        k=1
         for j in combs:
             if not i == j:
-                updates.append(generate_update(type=type, config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool))
+                inner_select = generate_inner_select(config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool)
+                update.append('`%s`=(%s)' % (j, inner_select))
+                if k != len(combs):
+                    update.append(", ")
+                else:
+                    update.append(" ")
+                k = k + 1
+        update.append(" WHERE rule='%s';" % i)
+        updates.append("".join(update))
     return updates
 
         
@@ -166,7 +177,7 @@ def main_wrapper(argv=None):
     for i in inserts:
         print i
 
-    updates = generate_updates(type='a', config=config, combs=combs, a_bool=True, b_bool=False)
+    updates = generate_updates(type='a', config=config, combs=combs, a_bool=True, b_bool=True)
     for i in updates:
         print i
 
@@ -174,11 +185,11 @@ def main_wrapper(argv=None):
     for i in updates:
         print i
 
-    updates = generate_updates(type='c', config=config, combs=combs, a_bool=True, b_bool=False)
+    updates = generate_updates(type='c', config=config, combs=combs, a_bool=False, b_bool=True)
     for i in updates:
         print i
 
-    updates = generate_updates(type='d', config=config, combs=combs, a_bool=True, b_bool=False)
+    updates = generate_updates(type='d', config=config, combs=combs, a_bool=False, b_bool=False)
     for i in updates:
         print i
 
