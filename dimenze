@@ -10,7 +10,7 @@ meta=interval
 1=0_150
 2=151_300
 3=301_450
-4=451_
+4=451_#
 [o_payed_by_label]
 meta=values
 1=Cash
