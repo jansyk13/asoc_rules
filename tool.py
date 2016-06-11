@@ -80,7 +80,7 @@ def generate_updates(type, config, combs, a_bool, b_bool):
     updates=list()
     for i in combs:
         for j in combs:
-            if not i == j:
+            if not i == j and not i = '' and not j == '':
                 updates.append(generate_update(type=type, config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool))
     return updates
 
@@ -136,6 +136,11 @@ def main_wrapper(argv=None):
     config = read_config(args.config_file)
 
     combs = generate_combinations(config)
+
+    print ('drop table asoc_rules_a;')
+    print ('drop table asoc_rules_b;')
+    print ('drop table asoc_rules_c;')
+    print ('drop table asoc_rules_d;')
 
     print generate_table(config=config, type='a', combs=combs)
     print generate_table(config=config, type='b', combs=combs)
