@@ -5,6 +5,7 @@ import io
 import os
 import ConfigParser
 import argparse
+import sys
 
 def generate_where_interval_expression(left_side, right_side, boolean, meta):
     sql = list()
@@ -75,12 +76,12 @@ def generate_update(type, config, a, a_bool, b, b_bool):
     return "".join(sql)
 
 
-def generate_updates(config, combs, a_bool, b_bool):
+def generate_updates(type, config, combs, a_bool, b_bool):
     updates=list()
     for i in combs:
         for j in combs:
             if not i == j:
-                updates.append(generate_update(config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool))
+                updates.append(generate_update(type=type, config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool))
     return updates
 
         
@@ -176,6 +177,8 @@ def main_wrapper(argv=None):
 
 
 def main():
+    reload(sys)
+    sys.setdefaultencoding("UTF-8")
     try:
         main_wrapper()
     except Exception:
