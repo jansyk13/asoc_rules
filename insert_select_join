@@ -1,0 +1,19 @@
+INSERT INTO source_data ( 
+SELECT
+	o.delivery_price AS o_delivery_price,
+    o.total_price AS o_total_price,
+    o.payed_by_label AS o_payed_by_label ,
+  	o.origin_label AS o_origin_label ,
+    o.distance_a AS o_distance ,
+    o.firstorder AS o_first_order ,
+    o.delivery_type AS o_delivery_type ,
+    o.traffic_source_id AS o_traffic_source_id ,
+    o.dayssincepreviousorder AS o_dayssincepreviousorder ,
+    o.city AS o_city ,
+    r.city AS r_city ,
+    r.district AS r_district ,
+    r.exclusive AS r_exclusive ,
+    r.min_order_price AS r_min_order_price ,
+    r.min_delivery_time AS r_min_delivery_time 
+FROM 
+    dameJidloOrders o INNER JOIN damejidloRestaurants r ON o.id_restaurant = r.id );

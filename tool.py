@@ -12,11 +12,28 @@ def generate_where_interval_expression(left_side, right_side, boolean, meta):
     right_side_left = right_side.split('_')[0]
     right_side_right = right_side.split('_')[1]
 
-    if boolean: 
-        sql.append("(`%s`>%s AND `%s`<=%s)" % (left_side, right_side_left, left_side, right_side_right))
+    if boolean:
+        if not right_side_left == '#':
+            if not right_side_right == '#':
+                sql.append("(`%s`>%s AND `%s`<=%s)" % (left_side, right_side_left, left_side, right_side_right))
+            else:
+                sql.append("(`%s`>%s)" % (left_side, right_side_left))
+        else:
+            if not right_side_right == '#':
+               sql.append("(`%s`<=%s)" % (left_side, right_side_right))
+            else:
+               raise Exception 
     else:
-        sql.append("(`%s`<%s OR `%s`>=%s)" % (left_side, right_side_left, left_side, right_side_right))
-
+	if not right_side_left == '#':
+            if not right_side_right == '#':
+                sql.append("(`%s`<=%s OR `%s`>%s)" % (left_side, right_side_left, left_side, right_side_right))
+            else:
+                sql.append("(`%s`<=%s)" % (left_side, right_side_left))
+        else:
+            if not right_side_right == '#':
+               sql.append("(`%s`>%s)" % (left_side, right_side_right))
+            else:
+               raise Exception
     return "".join(sql)
 
 
@@ -51,10 +68,10 @@ def generate_inner_select(config, a, a_bool, b, b_bool):
     return "".join(sql)
 
 
-def generate_update(config, a, a_bool, b, b_bool):
+def generate_update(type, config, a, a_bool, b, b_bool):
     sql = list()
     inner_select=generate_inner_select(config=config, a=a, a_bool=a_bool, b=b, b_bool=b_bool)
-    sql.append("UPDATE SET `%s`=(%s) WHERE rule='%s'" % (a, inner_select, b))
+    sql.append("UPDATE asoc_rules_%s SET `%s`=(%s) WHERE rule='%s'" % (type, a, inner_select, b))
     return "".join(sql)
 
 
@@ -114,21 +131,48 @@ def main_wrapper(argv=None):
 
     args = parser.parse_args()
 
-    type='a'    
 
     config = read_config(args.config_file)
 
     combs = generate_combinations(config)
 
-    print generate_table(config=config, type=type, combs=combs)
+    print generate_table(config=config, type='a', combs=combs)
+    print generate_table(config=config, type='b', combs=combs)
+    print generate_table(config=config, type='c', combs=combs)
+    print generate_table(config=config, type='d', combs=combs)
 
-    inserts = generate_inserts(type=type , combs=combs)
+    inserts = generate_inserts(type='a' , combs=combs)
     for i in inserts:
         print i
 
-    updates = generate_updates(config=config, combs=combs, a_bool=True, b_bool=False)
+    inserts = generate_inserts(type='b' , combs=combs)
+    for i in inserts:
+        print i
+   
+    inserts = generate_inserts(type='c' , combs=combs)
+    for i in inserts:
+        print i
+    
+    inserts = generate_inserts(type='d' , combs=combs)
+    for i in inserts:
+        print i
+
+    updates = generate_updates(type='a', config=config, combs=combs, a_bool=True, b_bool=False)
     for i in updates:
         print i
+
+    updates = generate_updates(type='b', config=config, combs=combs, a_bool=True, b_bool=False)
+    for i in updates:
+        print i
+
+    updates = generate_updates(type='c', config=config, combs=combs, a_bool=True, b_bool=False)
+    for i in updates:
+        print i
+
+    updates = generate_updates(type='d', config=config, combs=combs, a_bool=True, b_bool=False)
+    for i in updates:
+        print i
+
 
 
 def main():
