@@ -6,7 +6,7 @@ meta=interval
 4=101_150
 5=151_#
 [o_total_price]
-metadata=interval
+meta=interval
 1=0_150
 2=151_300
 3=301_450

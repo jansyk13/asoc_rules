@@ -59,6 +59,7 @@ def find_meta_in_config(config, statement):
     for k,v in config.items(section):
         if k == 'meta':
             return v 
+    raise Exception('Not found meta in config  statement=%s' % statement)
 
 
 def generate_inner_select(config, a, a_bool, b, b_bool):
@@ -82,7 +83,7 @@ def generate_updates(type, config, combs, a_bool, b_bool):
     updates=list()
     for i in combs:
         for j in combs:
-            if not i == j and not i == '' and not j == '':
+            if not i == j:
                 updates.append(generate_update(type=type, config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool))
     return updates
 
