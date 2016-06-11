@@ -72,7 +72,7 @@ def generate_inner_select(config, a, a_bool, b, b_bool):
 def generate_update(type, config, a, a_bool, b, b_bool):
     sql = list()
     inner_select=generate_inner_select(config=config, a=a, a_bool=a_bool, b=b, b_bool=b_bool)
-    sql.append("UPDATE asoc_rules_%s SET `%s`=(%s) WHERE rule='%s'" % (type, a, inner_select, b))
+    sql.append("UPDATE asoc_rules_%s SET `%s`=(%s) WHERE rule='%s';" % (type, a, inner_select, b))
     return "".join(sql)
 
 
@@ -88,7 +88,7 @@ def generate_updates(type, config, combs, a_bool, b_bool):
 def generate_inserts(type, combs):
     inserts=list()
     for i in combs:
-        inserts.append("INSERT INTO asoc_rules_%s (rule) VALUES (%s)" % (type, i))
+        inserts.append("INSERT INTO asoc_rules_%s (rule) VALUES (%s);" % (type, i))
     return inserts
 
 
