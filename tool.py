@@ -80,7 +80,7 @@ def generate_updates(type, config, combs, a_bool, b_bool):
     updates=list()
     for i in combs:
         for j in combs:
-            if not i == j and not i = '' and not j == '':
+            if not i == j and not i == '' and not j == '':
                 updates.append(generate_update(type=type, config=config, a=i, a_bool=a_bool, b=j, b_bool=b_bool))
     return updates
 
