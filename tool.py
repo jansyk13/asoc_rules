@@ -13,9 +13,9 @@ def generate_where_interval_expression(left_side, right_side, boolean, meta):
     right_side_right = right_side.split('_')[1]
 
     if boolean: 
-        sql.append("(%s>%s AND %s<=%s)" % (left_side, right_side_left, left_side, right_side_right))
+        sql.append("(`%s`>%s AND `%s`<=%s)" % (left_side, right_side_left, left_side, right_side_right))
     else:
-        sql.append("(%s<%s OR %s>=%s)" % (left_side, right_side_left, left_side, right_side_right))
+        sql.append("(`%s`<%s OR `%s`>=%s)" % (left_side, right_side_left, left_side, right_side_right))
 
     return "".join(sql)
 
@@ -26,9 +26,9 @@ def generate_where_expression(statement, boolean, meta):
     right_side = statement.split('$')[1]
     if meta == 'values':
         if boolean:
-            sql.append('%s=%s' % (left_side, right_side))
+            sql.append('`%s`=%s' % (left_side, right_side))
         else:
-            sql.append('%s!=%s' % (left_side, right_side))
+            sql.append('`%s`!=%s' % (left_side, right_side))
     elif meta == 'interval':
         sql.append(generate_where_interval_expression(left_side=left_side, right_side=right_side, boolean=boolean, meta=meta))
     return "".join(sql)
@@ -54,7 +54,7 @@ def generate_inner_select(config, a, a_bool, b, b_bool):
 def generate_update(config, a, a_bool, b, b_bool):
     sql = list()
     inner_select=generate_inner_select(config=config, a=a, a_bool=a_bool, b=b, b_bool=b_bool)
-    sql.append("UPDATE SET %s=(%s) WHERE rule=%s" % (a, inner_select, b))
+    sql.append("UPDATE SET `%s`=(%s) WHERE rule='%s'" % (a, inner_select, b))
     return "".join(sql)
 
 
@@ -79,7 +79,7 @@ def generate_table(config, type, combs):
     sql.append("CREATE TABLE asoc_rules_%s ( rules VARCHAR(255), " % type)
     i = 1
     for dim in combs: 
-        sql.append("%s LONG" % dim)
+        sql.append("`%s` LONG" % dim)
         if i != len(combs):
             sql.append(", ")
         i = i + 1

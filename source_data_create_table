@@ -1,0 +1,17 @@
+CREATE TABLE source_data (
+    `o_delivery_price` VARCHAR(255),
+    `o_total_price` VARCHAR (255),
+    `o_payed_by_label` VARCHAR(255),
+    `o_origin_label` VARCHAR(255),
+    `o_distance` VARCHAR(255),
+    `o_first_order` VARCHAR(255),
+    `o_delivery_type` VARCHAR(255),
+    `o_traffic_source_id` VARCHAR(255),
+    `o_dayssincepreviousorder` VARCHAR(255),
+    `o_city` VARCHAR(255),
+    `r_city` VARCHAR(255),
+    `r_district` VARCHAR(255),
+    `r_exclusive` VARCHAR(255),
+    `r_min_order_price` VARCHAR(255),
+    `r_min_delivery_time` VARCHAR(255)
+);
