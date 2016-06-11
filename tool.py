@@ -44,9 +44,9 @@ def generate_where_expression(statement, boolean, meta):
     right_side = statement.split('$')[1]
     if meta == 'values':
         if boolean:
-            sql.append('`%s`=%s' % (left_side, right_side))
+            sql.append("`%s`='%s'" % (left_side, right_side))
         else:
-            sql.append('`%s`!=%s' % (left_side, right_side))
+            sql.append("`%s`!='%s'" % (left_side, right_side))
     elif meta == 'interval':
         sql.append(generate_where_interval_expression(left_side=left_side, right_side=right_side, boolean=boolean, meta=meta))
     else:
