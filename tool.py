@@ -91,7 +91,7 @@ def generate_updates(type, config, combs, a_bool, b_bool):
 def generate_inserts(type, combs):
     inserts=list()
     for i in combs:
-        inserts.append("INSERT INTO asoc_rules_%s (rule) VALUES (`%s`);" % (type, i))
+        inserts.append("INSERT INTO asoc_rules_%s (rule) VALUES ('%s');" % (type, i))
     return inserts
 
 
