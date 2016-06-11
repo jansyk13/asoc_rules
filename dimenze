@@ -1,10 +1,10 @@
 [o_delivery_price]
 meta=interval
-1=_0
+1=#_0
 2=1_50
 3=51_100
 4=101_150
-5=151_
+5=151_#
 [o_total_price]
 metadata=interval
 1=0_150
@@ -64,7 +64,7 @@ meta=interval
 2=6_10
 3=11_30
 4=31_100
-5=101_
+5=101_#
 [o_city]
 meta=values
 1=Praha
@@ -235,13 +235,13 @@ meta=values
 2=1
 [r_min_order_price]
 meta=interval
-1=0
+1=#_0
 2=1_50
 3=51_100
 4=101_150
 5=151_200
 5=201_250
-6=251_
+6=251_#
 [r_min_delivery_time]
 meta=values
 1=20

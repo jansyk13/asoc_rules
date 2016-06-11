@@ -6,20 +6,31 @@ import os
 import ConfigParser
 import argparse
 
+def generate_where_interval_expression(left_side, right_side, boolean, meta):
+    sql = list()
+
+    right_side_left = right_side.split('_')[0]
+    right_side_right = right_side.split('_')[1]
+
+    if boolean: 
+        sql.append("(%s>%s AND %s<=%s)" % (left_side, right_side_left, left_side, right_side_right))
+    else:
+        sql.append("(%s<%s OR %s>=%s)" % (left_side, right_side_left, left_side, right_side_right))
+
+    return "".join(sql)
+
 
 def generate_where_expression(statement, boolean, meta):
-    sql=list()
-
-    left_side=statement.split('$')[0]
-    right_side=statement.split('$')[1]
-
+    sql = list()
+    left_side = statement.split('$')[0]
+    right_side = statement.split('$')[1]
     if meta == 'values':
         if boolean:
             sql.append('%s=%s' % (left_side, right_side))
         else:
             sql.append('%s!=%s' % (left_side, right_side))
     elif meta == 'interval':
-        sql.append("NOT IMPLEMENTED YET")
+        sql.append(generate_where_interval_expression(left_side=left_side, right_side=right_side, boolean=boolean, meta=meta))
     return "".join(sql)
 
 
