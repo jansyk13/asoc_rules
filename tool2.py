@@ -92,20 +92,21 @@ def generate_data(db, config, combs):
     inserts = list()
     for i in combs:
         for j in combs:
-            sql = list()
-            sql.append("INSERT INTO asoc_rules VALUES ('%s', '%s', " % (i, j))
-            sql.append(generate_inner_select(config=config, a=i, a_bool=True, b=j, b_bool=True))
-            sql.append(", ")
-            sql.append(generate_inner_select(config=config, a=i, a_bool=True, b=j, b_bool=False))
-            sql.append(", ")
-            sql.append(generate_inner_select(config=config, a=i, a_bool=False, b=j, b_bool=True))
-            sql.append(", ")
-            sql.append(generate_inner_select(config=config, a=i, a_bool=False, b=j, b_bool=False))
-            sql.append(");")
+            if not i == j:
+                sql = list()
+                sql.append("INSERT INTO asoc_rules VALUES ('%s', '%s', " % (i, j))
+                sql.append(generate_inner_select(config=config, a=i, a_bool=True, b=j, b_bool=True))
+                sql.append(", ")
+                sql.append(generate_inner_select(config=config, a=i, a_bool=True, b=j, b_bool=False))
+                sql.append(", ")
+                sql.append(generate_inner_select(config=config, a=i, a_bool=False, b=j, b_bool=True))
+                sql.append(", ")
+                sql.append(generate_inner_select(config=config, a=i, a_bool=False, b=j, b_bool=False))
+                sql.append(");")
 
-            insert = "".join(sql)
-            inserts.append(insert)
-            print ("%s %s" % (i, j))
+                insert = "".join(sql)
+                inserts.append(insert)
+                print ("%s %s" % (i, j))
     pool.map(execute_sql, inserts)
 
 
