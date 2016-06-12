@@ -48,9 +48,9 @@ def generate_where_expression(statement, boolean, meta):
     right_side = statement.split('$')[1]
     if meta == 'values':
         if boolean:
-            sql.append("`%s`='%s'" % (left_side, right_side))
+            sql.append("`%s`='%s' COLLATE utf8_unicode_ci" % (left_side, right_side))
         else:
-            sql.append("`%s`!='%s'" % (left_side, right_side))
+            sql.append("`%s`!='%s' COLLATE utf8_unicode_ci" % (left_side, right_side))
     elif meta == 'interval':
         sql.append(generate_where_interval_expression(left_side=left_side, right_side=right_side, boolean=boolean, meta=meta))
     else:
@@ -77,14 +77,16 @@ def generate_inner_select(config, a, a_bool, b, b_bool):
 
 
 def execute_sql(sql):
-    print ("START %s" % sql)
+    print "execute_sql"
 
-    cursor = db.cursor()
-    cursor.execute('SET NAMES utf8;')
-    cursor.execute('SET CHARACTER SET utf8;')
-    cursor.execute('SET character_set_connection=utf8;')
-    cursor.execute(sql)
-    print ("END %s" % sql)
+    try:
+        cursor = db.cursor()
+        cursor.execute('SET NAMES utf8;')
+        cursor.execute('SET CHARACTER SET utf8;')
+        cursor.execute('SET character_set_connection=utf8;')
+        cursor.execute(sql)
+    except Exception as e:
+        print ("sql=%s msg=%s" % (sql, e))
 
 
 def generate_data(db, config, combs):
@@ -112,7 +114,7 @@ def generate_data(db, config, combs):
 
 def generate_table(db):
     cur = db.cursor()
-    cur.execute("CREATE TABLE asoc_rules ( ant VARCHAR(255), suk VARCHAR(255), a LONG, b LONG, c LONG, d LONG) CHARACTER SET utf8, COLLATE utf8_general_ci;")
+    cur.execute("CREATE TABLE asoc_rules ( ant VARCHAR(255) CHARACTER SET utf8, suk VARCHAR(255) CHARACTER SET utf8, a LONG, b LONG, c LONG, d LONG) CHARACTER SET utf8, COLLATE utf8_general_ci;")
 
 
 def drop_table(db):
