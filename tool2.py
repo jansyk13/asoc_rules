@@ -85,6 +85,15 @@ def execute_sql(sql, cursor):
         print ("sql=%s msg=%s" % (sql, e))
 
 
+def check_record(db,a,b):
+    cur = db.cursor()
+    sql = ("SELECT 1 FROM asoc_rules WHERE ant='%s' AND suk='%s'" % (a,b))
+    cur.execute(sql)
+    if cur.rowcount == 1:
+        return False
+    return True
+
+
 def generate_data(db, config, combs):
     cursor = db.cursor()
     cursor.execute('SET NAMES utf8;')
@@ -93,7 +102,7 @@ def generate_data(db, config, combs):
 
     for i in combs:
         for j in combs:
-            if not i == j:
+            if not i == j and check(db=db,a=a,b=b):
                 sql = list()
                 sql.append("INSERT INTO asoc_rules VALUES ('%s', '%s', " % (i, j))
                 sql.append(generate_inner_select(config=config, a=i, a_bool=True, b=j, b_bool=True))
@@ -162,8 +171,8 @@ def main_wrapper(argv=None):
     global db
 
     db = connect_to_db()
-    drop_table(db=db)
-    generate_table(db=db)
+#    drop_table(db=db)
+#    generate_table(db=db)
     generate_data(db=db, config=config, combs=combs)
 
 
