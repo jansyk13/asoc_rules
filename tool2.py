@@ -103,7 +103,7 @@ def generate_data(db, config, combs):
     inserts = list()
     for i in combs:
         for j in combs:
-            if not i == j and check(db=db,a=a,b=b):
+            if not i == j and check_record(db=db,a=i,b=j):
                 sql = list()
                 sql.append("INSERT INTO asoc_rules VALUES ('%s', '%s', " % (i, j))
                 sql.append(generate_inner_select(config=config, a=i, a_bool=True, b=j, b_bool=True))
