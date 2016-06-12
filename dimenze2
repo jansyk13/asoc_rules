@@ -161,18 +161,9 @@ meta=interval
 5=201_250
 6=251_UNDEF
 [r_min_delivery_time]
-meta=values
-1=20
-2=80
-3=50
-4=40
-5=30
-6=85
-7=120
-8=45
-9=70
-10=90
-11=999
-12=75
-13=60
+meta=interval
+1=UNDEF_30
+2=31_60
+3=61_90
+4=91_UNDEF
 
