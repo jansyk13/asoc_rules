@@ -72,26 +72,25 @@ def generate_inner_select(config, a, a_bool, b, b_bool):
     meta_b = find_meta_in_config(config=config, statement=b)
     exp_a = generate_where_expression(a, a_bool, meta_a)
     exp_b = generate_where_expression(b, b_bool, meta_b)
-    sql.append("(SELECT COUNT(*) FROM source_data2 WHERE %s AND %s)" % (exp_a, exp_b))
+    sql.append("(SELECT COUNT(*) FROM source_data3 WHERE %s AND %s)" % (exp_a, exp_b))
     return "".join(sql)
 
 
-def execute_sql(sql):
+def execute_sql(sql, cursor):
     print "execute_sql"
 
     try:
-        cursor = db.cursor()
-        cursor.execute('SET NAMES utf8;')
-        cursor.execute('SET CHARACTER SET utf8;')
-        cursor.execute('SET character_set_connection=utf8;')
         cursor.execute(sql)
     except Exception as e:
         print ("sql=%s msg=%s" % (sql, e))
 
 
 def generate_data(db, config, combs):
-    pool = multiprocessing.Pool(10)
-    inserts = list()
+    cursor = db.cursor()
+    cursor.execute('SET NAMES utf8;')
+    cursor.execute('SET CHARACTER SET utf8;')
+    cursor.execute('SET character_set_connection=utf8;')
+
     for i in combs:
         for j in combs:
             if not i == j:
@@ -107,9 +106,7 @@ def generate_data(db, config, combs):
                 sql.append(");")
 
                 insert = "".join(sql)
-                inserts.append(insert)
-                print ("%s %s" % (i, j))
-    pool.map(execute_sql, inserts)
+                execute_sql(sql=insert, cursor=cursor)                
 
 
 def generate_table(db):
